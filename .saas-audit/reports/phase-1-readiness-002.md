@@ -1,6 +1,6 @@
 # Phase 1 readiness — read-only security discovery
 
-Date: 2026-09-26 15:20 America/Sao_Paulo  
+Date: 2026-09-26 15:20 America/Sao_Paulo
 Cycle: `audit-20260926-114137-87ca41f9`
 
 ## Result
