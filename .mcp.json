@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "supabase-atendimento": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=syknlbsdwkbwgfvjjebv&features=database%2Cdebugging%2Cdevelopment%2Cdocs"
+    }
+  }
+}
