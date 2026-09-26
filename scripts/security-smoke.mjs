@@ -17,7 +17,7 @@ assert.equal(home.headers.get("x-frame-options"), "DENY");
 const login = await request("/login");
 assert.equal(login.status, 200, "login must be public");
 
-for (const path of ["/dashboard", "/onboarding"]) {
+for (const path of ["/dashboard", "/onboarding", "/clients"]) {
   const response = await request(path);
   assert.equal(response.status, 307, `${path} must redirect without a session`);
   assert.equal(response.headers.get("location"), "/login");
@@ -29,5 +29,12 @@ const onboardingApi = await request("/api/onboarding", {
   body: JSON.stringify({}),
 });
 assert.equal(onboardingApi.status, 401, "onboarding API must require authentication");
+
+const clientsApi = await request("/api/clients", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({}),
+});
+assert.equal(clientsApi.status, 401, "clients API must require authentication");
 
 console.log("security smoke passed");

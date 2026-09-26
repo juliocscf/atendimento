@@ -108,6 +108,16 @@ Data: 26/09/2026
 - Em caso de ausência de membership, organização ou unidade consistente, o fluxo falha fechado e não renderiza dados operacionais.
 - Smoke test automatizado criado em `scripts/security-smoke.mjs` para repetir a validação sem usuário real ou escrita no banco.
 - `npm run security:smoke`: passou contra o servidor local.
+- Módulo de clientes adicionado com guard de membership, branch derivada por organização e payload allowlist server-side.
+- Auditoria automática aplicada a `clients` e `devices`, com snapshots sem `document_ciphertext`, `document_hash`, contatos, notas, IP, MAC ou hostname.
+- Teste transacional remoto confirmou eventos `clients.insert` e `devices.insert`, sem campos sensíveis nos snapshots; rollback confirmou zero registros sintéticos persistidos.
+- Smoke test local ampliado: `/clients` redireciona sem sessão e `POST /api/clients` retorna 401 sem autenticação.
+
+## Achados abertos da Fase 1
+
+- `auth_leaked_password_protection`: proteção contra senhas comprometidas está desativada no Supabase Auth; habilitar no Dashboard antes de liberar novos usuários.
+- `authenticated_security_definer_function_executable`: warning intencional da RPC de onboarding, documentado e mitigado com validação de `auth.uid()`, allowlist, lock e ausência de execução por `anon`.
+- E2E autenticado para criação e listagem de cliente ainda pendente; não usar dados reais para substituir esse teste.
 
 Estado do onboarding: TESTED estruturalmente; ainda requer teste E2E com usuário autenticado de teste.
 

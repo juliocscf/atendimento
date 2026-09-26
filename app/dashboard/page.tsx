@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import { requireAuthenticatedUser } from "@/lib/auth/require-authenticated-user";
 
@@ -61,6 +62,9 @@ export default async function DashboardPage() {
             <p className="muted">Nenhum dado de demonstração é criado automaticamente.</p>
           </article>
         </section>
+        <div className="actions">
+          <Link className="button" href="/clients">Gerenciar clientes</Link>
+        </div>
       </div>
     </main>
   );

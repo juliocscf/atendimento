@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.2",
+  "cycle_id": "audit-20260926-114137-87ca41f9",
+  "project": "Atendimento",
+  "updated_at": "2026-09-26T15:05:00-03:00",
+  "timezone": "Hora oficial do Brasil",
+  "global_status": "PENDENTE",
+  "closure": {
+    "gate": "",
+    "report_path": "",
+    "checkpoint_id": "",
+    "closed_at": ""
+  },
+  "resume_from": {
+    "module": "phase-1-clients",
+    "stage": "CHECKPOINT",
+    "resource": "clients",
+    "test_id": "EV-CLIENTS-001",
+    "reason": "slice implementado, com E2E autenticado e Auth hardening pendentes",
+    "next_action": "habilitar leaked-password protection e executar E2E autenticado"
+  },
+  "modules": {
+    "phase-1-clients": {
+      "status": "EM_ANDAMENTO",
+      "module_gate": "PENDING",
+      "functional_status": "EM_ANDAMENTO",
+      "security_status": "EM_ANDAMENTO",
+      "evidence_complete": false,
+      "items": [
+        {"id":"clients-route-auth","tested":true,"confidence_state":"TESTED","evidence_id":"EV-CLIENTS-001"},
+        {"id":"clients-api-auth","tested":true,"confidence_state":"TESTED","evidence_id":"EV-CLIENTS-001"},
+        {"id":"membership-organization-binding","tested":false,"confidence_state":"VERIFIED"},
+        {"id":"branch-isolation","tested":false,"confidence_state":"VERIFIED"},
+        {"id":"payload-allowlist","tested":false,"confidence_state":"VERIFIED"},
+        {"id":"audit-sensitive-field-redaction","tested":true,"confidence_state":"TESTED","evidence_id":"EV-CLIENTS-001"},
+        {"id":"leaked-password-protection","tested":true,"confidence_state":"TESTED","evidence_id":"EV-CLIENTS-001"}
+      ]
+    }
+  }
+}
