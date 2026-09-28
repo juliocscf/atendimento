@@ -6,11 +6,30 @@ import { useRouter } from "next/navigation";
 import { clientCreateSchema } from "@/lib/validation/client";
 
 type BranchOption = { id: string; name: string; code: string };
+type ClientInitialValues = {
+  id: string;
+  clientType: "individual" | "business";
+  displayName: string;
+  legalName: string | null;
+  tradeName: string | null;
+  branchId: string | null;
+  email: string | null;
+  phone: string | null;
+  whatsapp: string | null;
+  notes: string | null;
+};
 
-export function ClientForm({ branches }: { branches: BranchOption[] }) {
+export function ClientForm({
+  branches,
+  initialClient,
+}: {
+  branches: BranchOption[];
+  initialClient?: ClientInitialValues;
+}) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const isEditing = Boolean(initialClient);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -36,21 +55,32 @@ export function ClientForm({ branches }: { branches: BranchOption[] }) {
     }
 
     setPending(true);
-    const response = await fetch("/api/clients", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(parsed.data),
-    });
+    try {
+      const response = await fetch(
+        initialClient ? `/api/clients/${encodeURIComponent(initialClient.id)}` : "/api/clients",
+        {
+          method: initialClient ? "PATCH" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(parsed.data),
+        },
+      );
 
-    if (!response.ok) {
+      if (!response.ok) {
+        setError(isEditing ? "Não foi possível atualizar o cliente." : "Não foi possível cadastrar o cliente.");
+        return;
+      }
+
+      if (isEditing) {
+        router.push("/clients");
+      } else {
+        form.reset();
+        router.refresh();
+      }
+    } catch {
+      setError("Não foi possível salvar. Verifique sua conexão e tente novamente.");
+    } finally {
       setPending(false);
-      setError("Não foi possível cadastrar o cliente.");
-      return;
     }
-
-    form.reset();
-    setPending(false);
-    router.refresh();
   }
 
   return (
@@ -58,14 +88,19 @@ export function ClientForm({ branches }: { branches: BranchOption[] }) {
       <div className="form-grid">
         <div className="field">
           <label htmlFor="clientType">Tipo</label>
-          <select id="clientType" name="clientType" defaultValue="individual" required>
+          <select id="clientType" name="clientType" defaultValue={initialClient?.clientType ?? "individual"} required>
             <option value="individual">Pessoa física</option>
             <option value="business">Pessoa jurídica</option>
           </select>
         </div>
         <div className="field">
           <label htmlFor="branchId">Unidade</label>
-          <select id="branchId" name="branchId" defaultValue={branches[0]?.id ?? ""} required>
+          <select
+            id="branchId"
+            name="branchId"
+            defaultValue={initialClient ? initialClient.branchId ?? "" : branches[0]?.id ?? ""}
+            required
+          >
             <option value="" disabled>Selecione uma unidade</option>
             {branches.map((branch) => (
               <option key={branch.id} value={branch.id}>{branch.name} ({branch.code})</option>
@@ -75,41 +110,41 @@ export function ClientForm({ branches }: { branches: BranchOption[] }) {
       </div>
       <div className="field">
         <label htmlFor="displayName">Nome de exibição</label>
-        <input id="displayName" name="displayName" autoComplete="organization" required />
+        <input id="displayName" name="displayName" autoComplete="organization" defaultValue={initialClient?.displayName ?? ""} required />
       </div>
       <div className="form-grid">
         <div className="field">
           <label htmlFor="legalName">Razão social (opcional)</label>
-          <input id="legalName" name="legalName" />
+          <input id="legalName" name="legalName" defaultValue={initialClient?.legalName ?? ""} />
         </div>
         <div className="field">
           <label htmlFor="tradeName">Nome fantasia (opcional)</label>
-          <input id="tradeName" name="tradeName" />
+          <input id="tradeName" name="tradeName" defaultValue={initialClient?.tradeName ?? ""} />
         </div>
       </div>
       <div className="form-grid">
         <div className="field">
           <label htmlFor="email">E-mail (opcional)</label>
-          <input id="email" name="email" type="email" autoComplete="email" />
+          <input id="email" name="email" type="email" autoComplete="email" defaultValue={initialClient?.email ?? ""} />
         </div>
         <div className="field">
           <label htmlFor="phone">Telefone (opcional)</label>
-          <input id="phone" name="phone" type="tel" autoComplete="tel" />
+          <input id="phone" name="phone" type="tel" autoComplete="tel" defaultValue={initialClient?.phone ?? ""} />
         </div>
       </div>
       <div className="field">
         <label htmlFor="whatsapp">WhatsApp (opcional)</label>
-        <input id="whatsapp" name="whatsapp" type="tel" />
+        <input id="whatsapp" name="whatsapp" type="tel" defaultValue={initialClient?.whatsapp ?? ""} />
       </div>
       <div className="field">
         <label htmlFor="notes">Observações</label>
-        <textarea id="notes" name="notes" maxLength={4000} rows={4} />
+        <textarea id="notes" name="notes" maxLength={4000} rows={4} defaultValue={initialClient?.notes ?? ""} />
       </div>
       <p className="form-note">CPF/CNPJ não é coletado nesta etapa: o armazenamento seguro cifrado será habilitado em módulo próprio.</p>
       {error ? <p className="form-error" role="alert">{error}</p> : null}
       <div className="actions">
         <button className="button" type="submit" disabled={pending || branches.length === 0}>
-          {pending ? "Salvando…" : "Cadastrar cliente"}
+          {pending ? "Salvando…" : isEditing ? "Salvar alterações" : "Cadastrar cliente"}
         </button>
       </div>
     </form>

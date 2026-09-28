@@ -12,4 +12,6 @@ export const clientCreateSchema = z.object({
   notes: z.string().trim().max(4000).optional(),
 });
 
+export const clientUpdateSchema = clientCreateSchema;
+
 export type ClientCreateInput = z.infer<typeof clientCreateSchema>;

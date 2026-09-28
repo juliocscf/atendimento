@@ -60,6 +60,7 @@ select, textarea { width: 100%; border: 1px solid #b8c6d6; border-radius: 9px; p
 select { min-height: 44px; }
 textarea { resize: vertical; }
 .table-wrap { overflow-x: auto; }
+.pagination { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; }
 table { width: 100%; border-collapse: collapse; }
 th, td { border-bottom: 1px solid var(--line); padding: 13px 10px; text-align: left; }
 th { color: var(--muted); font-size: .85rem; }
