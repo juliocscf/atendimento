@@ -13,11 +13,11 @@
   },
   "resume_from": {
     "module": "phase-1-devices",
-    "stage": "NEGATIVE_PAYLOAD",
+    "stage": "NEXT_SCOPE",
     "resource": "devices",
-    "test_id": "EV-20260928-DEVICES-E2E-005",
-    "reason": "Cadastro/listagem autenticados passaram e foram confirmados remotamente; falta rejeitar um campo JSON desconhecido para fechar o gate de payload",
-    "next_action": "executar um POST negativo com campo desconhecido e confirmar HTTP 400 sem nova linha; manter edição, detalhes e timeline fora da exposição até implementação própria"
+    "test_id": "EV-20260928-DEVICES-PAYLOAD-010",
+    "reason": "Cadastro/listagem autenticados e allowlist negativa passaram; edição, detalhes e timeline são o próximo escopo",
+    "next_action": "especificar e implementar a próxima fatia de dispositivos somente com seus próprios gates de autorização, payload e auditoria"
   },
   "modules": {
     "phase-1-clients": {
@@ -49,7 +49,7 @@
         {"id":"device-unit-isolation","tested":true,"confidence_state":"VALIDATED","evidence_id":"EV-20260928-DEVICES-HARDENING-002"},
         {"id":"timeline-unit-isolation","tested":true,"confidence_state":"VALIDATED","evidence_id":"EV-20260928-DEVICES-HARDENING-002"},
         {"id":"device-api-auth","tested":true,"confidence_state":"TESTED","evidence_id":"EV-20260928-DEVICES-E2E-005"},
-        {"id":"device-payload-allowlist","tested":false,"confidence_state":"PENDING"},
+        {"id":"device-payload-allowlist","tested":true,"confidence_state":"VALIDATED","evidence_id":"EV-20260928-DEVICES-PAYLOAD-010"},
         {"id":"device-audit-sensitive-field-redaction","tested":true,"confidence_state":"TESTED","evidence_id":"EV-20260928-DEVICES-E2E-005"}
       ]
     }

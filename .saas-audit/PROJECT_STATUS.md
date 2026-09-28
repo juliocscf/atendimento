@@ -6,15 +6,15 @@ Ambiente: desenvolvimento local + Supabase remoto
 Fuso: America/Sao_Paulo
 Status geral: EM_ANDAMENTO
 Última atualização: 2026-09-28
-Último checkpoint: CP-20260928-DEVICES-E2E-009
+Último checkpoint: CP-20260928-DEVICES-PAYLOAD-010
 
 ## RESUME_FROM
 Módulo: phase-1-devices
-Etapa: NEGATIVE_PAYLOAD
+Etapa: NEXT_SCOPE
 Recurso: devices
-Teste: EV-20260928-DEVICES-E2E-005
-Motivo: cadastro/listagem autenticados passaram e foram confirmados remotamente; falta rejeitar um campo JSON desconhecido para fechar o gate de payload
-Próxima ação: executar um POST negativo com campo desconhecido e confirmar HTTP 400 sem nova linha; manter edição, detalhes e timeline fora da exposição até implementação própria
+Teste: EV-20260928-DEVICES-PAYLOAD-010
+Motivo: cadastro/listagem autenticados e allowlist negativa passaram; o próximo trabalho é um escopo separado de edição, detalhes e timeline
+Próxima ação: especificar e implementar a próxima fatia de dispositivos somente com seus próprios gates de autorização, payload e auditoria
 
 ## Encerramento
 Gate final:
@@ -24,7 +24,7 @@ Fechado em:
 
 ## Progresso por módulo
 phase-1-clients: CONCLUÍDO — todos os gates aplicáveis passaram.
-phase-1-devices: EM ANDAMENTO — integridade, RLS e primeira API/UI endurecidos; E2E negativo ainda pendente.
+phase-1-devices: EM ANDAMENTO — integridade, RLS, primeira API/UI, E2E e allowlist validados; edição, detalhes e timeline são o próximo escopo.
 
 ## Pendências atuais
 

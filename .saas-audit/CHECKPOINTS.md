@@ -129,3 +129,13 @@ Cada checkpoint deve possuir um identificador único. O checkpoint final deve re
 - Result: manual authenticated create/list passed for device `SQ3U` in MATRIZ; remote MCP confirmed the row and its audit event. Sensitive device attributes were absent from the audit snapshot.
 - Gate status: authenticated device create/list and audit redaction passed. Unknown-payload rejection remains pending; edit/detail/timeline mutation remain outside the exposed scope.
 - Resume: execute one negative POST containing an unknown JSON field and confirm HTTP 400 with no additional device row.
+
+## CP-20260928-DEVICES-PAYLOAD-010
+
+- Cycle: audit-20260926-114137-87ca41f9
+- Module: phase-1-devices
+- Status: EM_ANDAMENTO
+- Evidence: `.saas-audit/evidence/phase-1-devices-payload-010.md`
+- Result: production Zod schema smoke test passed; valid payload was accepted and the same payload with `unknownField` was rejected before database insertion.
+- Gate status: device create/list, tenant/unit isolation, audit redaction and payload allowlist are validated for the exposed slice. Edit, detail and timeline mutation remain future scope.
+- Resume: define and implement the next device slice (detail/edit/timeline) only after its own authorization and payload gates are specified.

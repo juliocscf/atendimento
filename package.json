@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "security:smoke": "node scripts/security-smoke.mjs"
+    "security:smoke": "node scripts/security-smoke.mjs",
+    "security:device-payload": "node --experimental-strip-types scripts/device-payload-smoke.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
