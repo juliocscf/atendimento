@@ -15,8 +15,8 @@
     "module": "phase-1-devices",
     "stage": "AUTHENTICATED_E2E",
     "resource": "devices",
-    "test_id": "EV-20260928-DEVICES-IMPLEMENTATION-003",
-    "reason": "A integridade de tenant/unidade e a primeira API/UI protegida de dispositivos foram implementadas; falta confirmar o fluxo autenticado real e os testes negativos",
+    "test_id": "EV-20260928-DEVICES-SUBMIT-FIX-004",
+    "reason": "O falso erro de conexão do cadastro foi corrigido; falta confirmar uma execução autenticada limpa após o novo deploy",
     "next_action": "executar o cadastro/listagem autenticados de dispositivo e confirmar rejeição de campo desconhecido e unidade não autorizada; manter edição, detalhes e timeline fora da exposição até implementação própria"
   },
   "modules": {

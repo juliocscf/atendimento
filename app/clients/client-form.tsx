@@ -55,31 +55,34 @@ export function ClientForm({
     }
 
     setPending(true);
+    let response: Response;
     try {
-      const response = await fetch(
-        initialClient ? `/api/clients/${encodeURIComponent(initialClient.id)}` : "/api/clients",
-        {
-          method: initialClient ? "PATCH" : "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(parsed.data),
-        },
-      );
-
-      if (!response.ok) {
-        setError(isEditing ? "Não foi possível atualizar o cliente." : "Não foi possível cadastrar o cliente.");
-        return;
-      }
-
-      if (isEditing) {
-        router.push("/clients");
-      } else {
-        form.reset();
-        router.refresh();
-      }
+      response = await fetch(
+          initialClient ? `/api/clients/${encodeURIComponent(initialClient.id)}` : "/api/clients",
+          {
+            method: initialClient ? "PATCH" : "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(parsed.data),
+          },
+        );
     } catch {
       setError("Não foi possível salvar. Verifique sua conexão e tente novamente.");
+      return;
     } finally {
       setPending(false);
+    }
+
+    if (!response.ok) {
+      setError(isEditing ? "Não foi possível atualizar o cliente." : "Não foi possível cadastrar o cliente.");
+      return;
+    }
+
+    setError(null);
+    if (isEditing) {
+      router.push("/clients");
+    } else {
+      form.reset();
+      router.refresh();
     }
   }
 

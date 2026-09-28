@@ -109,3 +109,13 @@ Cada checkpoint deve possuir um identificador único. O checkpoint final deve re
 - Result: protected `/api/devices` GET/POST, strict request validation, relationship prechecks, `/devices` inventory/create UI and dashboard navigation were implemented. Lint, typecheck and production build passed.
 - Gate status: implementation guardrails passed; authenticated E2E, negative API payload/branch tests and device audit snapshot verification remain pending. Edit/detail/timeline mutation are intentionally not exposed.
 - Resume: run the manual authenticated device create/list flow with an assigned unit, then verify rejection for an unknown payload field and an unauthorized unit.
+
+## CP-20260928-DEVICES-SUBMIT-FIX-008
+
+- Cycle: audit-20260926-114137-87ca41f9
+- Module: phase-1-devices
+- Status: EM_ANDAMENTO
+- Evidence: `.saas-audit/evidence/phase-1-devices-submit-fix-004.md`
+- Result: corrected the false connection error caused by reading `event.currentTarget` after an asynchronous request. The database had already committed the device; the browser-side exception was incorrectly classified as a failed save and enabled duplicate submissions.
+- Gate status: submit lifecycle fix passed lint, typecheck and build. Authenticated E2E still needs one clean manual run after deployment.
+- Resume: deploy this corrective commit and repeat one device registration, then verify the success state and negative payload/unit cases.

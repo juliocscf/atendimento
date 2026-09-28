@@ -6,14 +6,14 @@ Ambiente: desenvolvimento local + Supabase remoto
 Fuso: America/Sao_Paulo
 Status geral: EM_ANDAMENTO
 Última atualização: 2026-09-28
-Último checkpoint: CP-20260928-DEVICES-IMPLEMENTATION-007
+Último checkpoint: CP-20260928-DEVICES-SUBMIT-FIX-008
 
 ## RESUME_FROM
 Módulo: phase-1-devices
 Etapa: AUTHENTICATED_E2E
 Recurso: devices
-Teste: EV-20260928-DEVICES-IMPLEMENTATION-003
-Motivo: a primeira fatia protegida de inventário foi implementada; falta confirmar o fluxo autenticado real e os testes negativos de payload/unidade
+Teste: EV-20260928-DEVICES-SUBMIT-FIX-004
+Motivo: o falso erro de conexão no cadastro foi corrigido; falta confirmar uma execução autenticada limpa após o novo deploy
 Próxima ação: executar o cadastro/listagem autenticados de dispositivo e confirmar rejeição de campo desconhecido e unidade não autorizada; manter edição, detalhes e timeline fora da exposição até implementação própria
 
 ## Encerramento

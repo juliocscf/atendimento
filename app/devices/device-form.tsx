@@ -24,7 +24,8 @@ export function DeviceForm({
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const parsed = deviceCreateSchema.safeParse({
       branchId: formData.get("branchId"),
       clientId: formData.get("clientId"),
@@ -42,25 +43,30 @@ export function DeviceForm({
     }
 
     setPending(true);
+    let response: Response;
     try {
-      const response = await fetch("/api/devices", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsed.data),
-      });
-      if (!response.ok) {
-        setError(response.status === 400
-          ? "A unidade, o cliente e o tipo precisam pertencer ao mesmo contexto autorizado."
-          : "Não foi possível cadastrar o dispositivo.");
-        return;
-      }
-      event.currentTarget.reset();
-      router.refresh();
+      response = await fetch("/api/devices", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(parsed.data),
+        });
     } catch {
       setError("Não foi possível salvar. Verifique sua conexão e tente novamente.");
+      return;
     } finally {
       setPending(false);
     }
+
+    if (!response.ok) {
+      setError(response.status === 400
+        ? "A unidade, o cliente e o tipo precisam pertencer ao mesmo contexto autorizado."
+        : "Não foi possível cadastrar o dispositivo.");
+      return;
+    }
+
+    form.reset();
+    setError(null);
+    router.refresh();
   }
 
   return (
