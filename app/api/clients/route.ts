@@ -39,10 +39,11 @@ export async function POST(request: Request) {
 
   const { data: memberships, error: membershipError } = await supabase
     .from("organization_members")
-    .select("organization_id")
+    .select("organization_id,status")
+    .eq("user_id", userId)
     .limit(2);
 
-  if (membershipError || memberships?.length !== 1) {
+  if (membershipError || memberships?.length !== 1 || memberships[0].status !== "active") {
     return json({ error: "organization_required" }, 403);
   }
 
@@ -65,6 +66,8 @@ export async function POST(request: Request) {
     .select("id")
     .eq("id", parsed.data.branchId)
     .eq("organization_id", membership.organization_id)
+    .eq("status", "active")
+    .is("deleted_at", null)
     .maybeSingle();
 
   if (!branch) {
