@@ -119,3 +119,13 @@ Cada checkpoint deve possuir um identificador único. O checkpoint final deve re
 - Result: corrected the false connection error caused by reading `event.currentTarget` after an asynchronous request. The database had already committed the device; the browser-side exception was incorrectly classified as a failed save and enabled duplicate submissions.
 - Gate status: submit lifecycle fix passed lint, typecheck and build. Authenticated E2E still needs one clean manual run after deployment.
 - Resume: deploy this corrective commit and repeat one device registration, then verify the success state and negative payload/unit cases.
+
+## CP-20260928-DEVICES-E2E-009
+
+- Cycle: audit-20260926-114137-87ca41f9
+- Module: phase-1-devices
+- Status: EM_ANDAMENTO
+- Evidence: `.saas-audit/evidence/phase-1-devices-e2e-005.md`
+- Result: manual authenticated create/list passed for device `SQ3U` in MATRIZ; remote MCP confirmed the row and its audit event. Sensitive device attributes were absent from the audit snapshot.
+- Gate status: authenticated device create/list and audit redaction passed. Unknown-payload rejection remains pending; edit/detail/timeline mutation remain outside the exposed scope.
+- Resume: execute one negative POST containing an unknown JSON field and confirm HTTP 400 with no additional device row.

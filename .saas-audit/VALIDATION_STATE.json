@@ -13,11 +13,11 @@
   },
   "resume_from": {
     "module": "phase-1-devices",
-    "stage": "AUTHENTICATED_E2E",
+    "stage": "NEGATIVE_PAYLOAD",
     "resource": "devices",
-    "test_id": "EV-20260928-DEVICES-SUBMIT-FIX-004",
-    "reason": "O falso erro de conexão do cadastro foi corrigido; falta confirmar uma execução autenticada limpa após o novo deploy",
-    "next_action": "executar o cadastro/listagem autenticados de dispositivo e confirmar rejeição de campo desconhecido e unidade não autorizada; manter edição, detalhes e timeline fora da exposição até implementação própria"
+    "test_id": "EV-20260928-DEVICES-E2E-005",
+    "reason": "Cadastro/listagem autenticados passaram e foram confirmados remotamente; falta rejeitar um campo JSON desconhecido para fechar o gate de payload",
+    "next_action": "executar um POST negativo com campo desconhecido e confirmar HTTP 400 sem nova linha; manter edição, detalhes e timeline fora da exposição até implementação própria"
   },
   "modules": {
     "phase-1-clients": {
@@ -48,9 +48,9 @@
         {"id":"device-client-unit-integrity","tested":true,"confidence_state":"VALIDATED","evidence_id":"EV-20260928-DEVICES-HARDENING-002"},
         {"id":"device-unit-isolation","tested":true,"confidence_state":"VALIDATED","evidence_id":"EV-20260928-DEVICES-HARDENING-002"},
         {"id":"timeline-unit-isolation","tested":true,"confidence_state":"VALIDATED","evidence_id":"EV-20260928-DEVICES-HARDENING-002"},
-        {"id":"device-api-auth","tested":false,"confidence_state":"PENDING"},
+        {"id":"device-api-auth","tested":true,"confidence_state":"TESTED","evidence_id":"EV-20260928-DEVICES-E2E-005"},
         {"id":"device-payload-allowlist","tested":false,"confidence_state":"PENDING"},
-        {"id":"device-audit-sensitive-field-redaction","tested":false,"confidence_state":"PENDING"}
+        {"id":"device-audit-sensitive-field-redaction","tested":true,"confidence_state":"TESTED","evidence_id":"EV-20260928-DEVICES-E2E-005"}
       ]
     }
   }
