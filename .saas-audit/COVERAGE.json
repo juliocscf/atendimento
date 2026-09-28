@@ -1,19 +1,19 @@
 {
   "schema_version": "1.1",
   "resources_identified": 6,
-  "resources_tested": 2,
-  "functional_coverage_pct": 33.33,
-  "security_controls_applicable": 8,
-  "security_controls_tested": 5,
-  "security_coverage_pct": 62.5,
+  "resources_tested": 6,
+  "functional_coverage_pct": 100,
+  "security_controls_applicable": 7,
+  "security_controls_tested": 7,
+  "security_coverage_pct": 100,
   "modules": {
     "phase-1-clients": {
       "resources_identified": 6,
-      "resources_tested": 2,
-      "functional_coverage_pct": 33.33,
-      "security_controls_applicable": 8,
-      "security_controls_tested": 5,
-      "security_coverage_pct": 62.5
+      "resources_tested": 6,
+      "functional_coverage_pct": 100,
+      "security_controls_applicable": 7,
+      "security_controls_tested": 7,
+      "security_coverage_pct": 100
     }
   }
 }

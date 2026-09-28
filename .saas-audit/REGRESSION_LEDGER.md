@@ -1,3 +1,12 @@
 # REGRESSION LEDGER
 
 2026-09-26 | phase-1-clients | Nenhuma regressão observada nos checks locais; E2E autenticado ainda não executado.
+2026-09-28 | phase-1-clients | `supabase db lint --local` sem erros; pgTAP tenant-integrity 7/7 passou com fixtures transacionais revertidas. Sem teste remoto; E2E/RLS autenticado continua pendente.
+2026-09-28 | phase-1-clients | `npm run lint`, `npm run typecheck`, `npm run build` e `npm run security:smoke` passaram localmente; a execução equivalente do workflow hospedado ainda não ocorreu.
+2026-09-28 | phase-1-clients | MCP remoto restaurado; verificação de schema/migrações/RLS e simulação transacional autenticada passaram sem mutação persistida. Lint, typecheck e security smoke passaram novamente após iniciar o servidor local; E2E autenticado de aplicação continua pendente.
+2026-09-28 | phase-1-clients | `onboarding_security_hardening` aplicado remotamente e alinhado no histórico local; advisor deixou de reportar a função `SECURITY DEFINER` exposta. Lint local, pgTAP 7/7, lint, typecheck, build e security smoke passaram; E2E autenticado real continua pendente.
+2026-09-28 | phase-1-clients | E2E manual autenticado confirmou criação, listagem, detalhes e edição do cliente sintético; MCP confirmou a linha e os eventos de auditoria sem chaves documentais. Isolamento negativo de unidade permanece pendente porque a membership usada possui `all_branches=true`.
+2026-09-28 | phase-1-clients | Gates finais passaram: membership restrita validada em transação revertida (unidade atribuída permitida, não atribuída negada) e payload desconhecido rejeitado por schema Zod estrito. Módulo de clientes concluído; auditoria avança para dispositivos.
+2026-09-28 | phase-1-devices | Migrations de integridade tenant/unidade aplicadas no remoto; timeline passou a herdar RLS do dispositivo. Teste remoto transacional restrito passou com rollback; pgTAP local passou 9/9 e build/lint/typecheck passaram. API/UI de dispositivos ainda não existem.
+2026-09-28 | phase-1-devices | Implementados `/api/devices` GET/POST, schema estrito, pré-validação de relações, página `/devices` e link no dashboard. Lint, typecheck e build passaram; E2E autenticado e endpoints de edição/timeline continuam pendentes por escopo.
+2026-09-28 | phase-1-devices | Catálogo global idempotente de tipos (`computer`, `notebook`, `printer`) sem vínculo organizacional aplicado no remoto para habilitar o cadastro protegido; nenhuma organização recebeu dados específicos.

@@ -30,7 +30,7 @@ export default async function DashboardPage() {
 
   const membership = memberships[0];
 
-  const [{ data: organization, error: organizationError }, branchesResult, clientsResult] = await Promise.all([
+  const [{ data: organization, error: organizationError }, branchesResult, clientsResult, devicesResult] = await Promise.all([
     supabase
       .from("organizations")
       .select("name")
@@ -44,6 +44,11 @@ export default async function DashboardPage() {
       .is("deleted_at", null),
     supabase
       .from("clients")
+      .select("id", { count: "exact", head: true })
+      .eq("organization_id", membership.organization_id)
+      .is("deleted_at", null),
+    supabase
+      .from("devices")
       .select("id", { count: "exact", head: true })
       .eq("organization_id", membership.organization_id)
       .is("deleted_at", null),
@@ -82,14 +87,15 @@ export default async function DashboardPage() {
           </article>
           <article className="card stat">
             <span className="muted">Dispositivos</span>
-            <strong>Próximo módulo</strong>
-            <p className="muted">Cadastro será liberado após a validação do isolamento entre organização, unidade e cliente.</p>
+            <strong>{devicesResult.error ? "—" : devicesResult.count ?? 0}</strong>
+            <p className="muted">Dispositivos visíveis conforme sua organização e as unidades autorizadas.</p>
           </article>
         </section>
         <div className="actions">
           <Link className="button" href="/clients">Gerenciar clientes</Link>
+          <Link className="button secondary" href="/devices">Gerenciar dispositivos</Link>
         </div>
-        {branchesResult.error || clientsResult.error ? (
+        {branchesResult.error || clientsResult.error || devicesResult.error ? (
           <p className="form-note" role="status">Alguns totais não puderam ser carregados. Atualize a página para tentar novamente.</p>
         ) : null}
       </div>

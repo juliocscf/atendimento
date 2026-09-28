@@ -10,7 +10,7 @@ export const clientCreateSchema = z.object({
   phone: z.string().trim().max(40).optional(),
   whatsapp: z.string().trim().max(40).optional(),
   notes: z.string().trim().max(4000).optional(),
-});
+}).strict();
 
 export const clientUpdateSchema = clientCreateSchema;
 

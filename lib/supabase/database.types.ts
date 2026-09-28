@@ -514,7 +514,7 @@ export type Database = {
           organization_id: string
           patrimony?: string | null
           processor?: string | null
-          public_code: string
+          public_code?: string
           serial_number?: string | null
           service_tag?: string | null
           status?: string
