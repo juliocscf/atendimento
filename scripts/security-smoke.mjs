@@ -17,7 +17,13 @@ assert.equal(home.headers.get("x-frame-options"), "DENY");
 const login = await request("/login");
 assert.equal(login.status, 200, "login must be public");
 
-for (const path of ["/dashboard", "/onboarding", "/clients", "/clients/00000000-0000-4000-8000-000000000000/edit"]) {
+for (const path of [
+  "/dashboard",
+  "/onboarding",
+  "/clients",
+  "/clients/00000000-0000-4000-8000-000000000000",
+  "/clients/00000000-0000-4000-8000-000000000000/edit",
+]) {
   const response = await request(path);
   assert.equal(response.status, 307, `${path} must redirect without a session`);
   assert.equal(response.headers.get("location"), "/login");

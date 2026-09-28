@@ -207,7 +207,12 @@ export default async function ClientsPage({ searchParams }: { searchParams: Prom
                       <td>{client.client_type === "business" ? "Pessoa jurídica" : "Pessoa física"}</td>
                       <td>{client.branch_id ? branchNames.get(client.branch_id) ?? "Unidade não disponível" : "Organização"}</td>
                       <td>{client.status}</td>
-                      <td><Link className="button secondary" href={`/clients/${encodeURIComponent(client.id)}/edit`}>Editar</Link></td>
+                      <td>
+                        <div className="table-actions">
+                          <Link className="button secondary" href={`/clients/${encodeURIComponent(client.id)}`}>Ver</Link>
+                          <Link className="button secondary" href={`/clients/${encodeURIComponent(client.id)}/edit`}>Editar</Link>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

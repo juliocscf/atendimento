@@ -60,10 +60,14 @@ select, textarea { width: 100%; border: 1px solid #b8c6d6; border-radius: 9px; p
 select { min-height: 44px; }
 textarea { resize: vertical; }
 .table-wrap { overflow-x: auto; }
+.table-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .pagination { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; }
 table { width: 100%; border-collapse: collapse; }
 th, td { border-bottom: 1px solid var(--line); padding: 13px 10px; text-align: left; }
 th { color: var(--muted); font-size: .85rem; }
+.details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 0; }
+.details-grid dt { color: var(--muted); font-size: .9rem; }
+.details-grid dd { margin: 6px 0 0; overflow-wrap: anywhere; }
 .stat { padding: 22px; }
 .stat strong { display: block; margin-top: 8px; font-size: 1.8rem; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
